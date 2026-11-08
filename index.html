@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أحمد محمد عنتر | قائد هجمات واختبار اختراق متقدم (Senior Red Teamer)</title>
+    
+    <!-- SEO Metadata -->
+    <meta name="description" content="الموقع الشخصي لأحمد محمد عنتر، مختص Red Teaming واختبار الاختراق، ومطور منظومة DRAGON للأتمتة الأمنية والاستطلاع.">
+    <meta name="keywords" content="أحمد محمد عنتر, Ahmed Mohamed Antar, Red Team, Penetration Testing, Cyber Security, Ethical Hacking, DRAGON, OSINT">
+    <meta name="author" content="Ahmed Mohamed Antar">
+    <meta name="theme-color" content="#05070a">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="أحمد محمد عنتر | Red Team & Penetration Testing">
+    <meta property="og:description" content="ملف شخصي متخصص في محاكاة التهديدات، الاختبار الأخلاقي، والأتمتة الأمنية.">
+    <meta property="og:image" content="./images/my%20ahmed%20antar.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="أحمد محمد عنتر | Offensive Security Specialist">
+    <meta name="twitter:description" content="Red Team Operator وdeveloper لمنظومة DRAGON الأوتوماتية.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#05070a',
+                            dark: '#090d14',
+                            card: '#0d131f',
+                            border: '#1b263b',
+                            red: '#FF003C',
+                            redGlow: 'rgba(255, 0, 60, 0.4)',
+                            cyan: '#00F3FF',
+                            cyanGlow: 'rgba(0, 243, 255, 0.4)',
+                            gold: '#FFD700',
+                            goldGlow: 'rgba(255, 215, 0, 0.4)',
+                            green: '#00FF66'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        space: ['Space Grotesk', 'sans-serif'],
+                        mono: ['Fira Code', 'Courier New', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Orbitron:wght@400;600;800;900&family=Space+Grotesk:wght@400;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Three.js for 3D Background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+        body {
+            background-color: #05070a;
+            color: #e2e8f0;
+            font-family: 'Cairo', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Glassmorphism & Cyber Borders */
+        .glass-panel {
+            background: rgba(13, 19, 31, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 243, 255, 0.12);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+        }
+
+        .glass-panel-red {
+            background: rgba(20, 10, 15, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 0, 60, 0.25);
+            box-shadow: 0 20px 50px rgba(255, 0, 60, 0.1);
+        }
+
+        .glass-panel-gold {
+            background: rgba(20, 18, 10, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 215, 0, 0.25);
+            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.1);
+        }
+
+        /* Luxury Glows */
+        .glow-cyan-text { text-shadow: 0 0 15px rgba(0, 243, 255, 0.7), 0 0 30px rgba(0, 243, 255, 0.3); }
+        .glow-red-text { text-shadow: 0 0 15px rgba(255, 0, 60, 0.8), 0 0 30px rgba(255, 0, 60, 0.4); }
+        .glow-gold-text { text-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.4); }
+
+        .glow-box-red { box-shadow: 0 0 30px rgba(255, 0, 60, 0.3); }
+        .glow-box-cyan { box-shadow: 0 0 30px rgba(0, 243, 255, 0.3); }
+        .glow-box-gold { box-shadow: 0 0 30px rgba(255, 215, 0, 0.3); }
+
+        /* CRT Scanline & HUD Mesh */
+        .scanline-overlay {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0, 243, 255, 0.02) 50%,
+                rgba(0, 243, 255, 0.02)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        .cyber-grid-bg {
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+        }
+
+        /* Holographic Card Tilt Animation */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .tilt-card:hover {
+            transform: translateY(-8px) scale(1.01);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #05070a; }
+        ::-webkit-scrollbar-thumb { background: #1b263b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF003C; }
+
+        @keyframes laserScan {
+            0% { top: 0%; opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { top: 100%; opacity: 0.8; }
+        }
+        .animate-laser { animation: laserScan 3s ease-in-out infinite alternate; }
+    </style>
+</head>
+<body class="relative selection:bg-cyber-red selection:text-white cyber-grid-bg">
+
+    <!-- 3D Three.js Interactive Particle Background Canvas -->
+    <canvas id="bg-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-45"></canvas>
+    
+    <!-- HUD Scanline Grid Overlay -->
+    <div class="fixed inset-0 scanline-overlay z-10"></div>
+
+    <!-- Executive Navigation Bar -->
+    <nav class="sticky top-0 z-50 backdrop-blur-2xl bg-cyber-bg/85 border-b border-cyber-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Brand / Identity -->
+                <a href="#about" class="flex items-center gap-3 group">
+                    <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-cyber-red/10 border border-cyber-red/40 group-hover:border-cyber-red transition-colors">
+                        <i class="fa-solid fa-user-ninja text-cyber-red text-lg group-hover:scale-110 transition-transform"></i>
+                        <span class="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-cyber-green animate-pulse"></span>
+                    </div>
+                    <div class="flex flex-col text-right dir-rtl">
+                        <span class="font-orbitron font-black text-lg tracking-wider text-white">
+                            AHMED <span class="text-cyber-red glow-red-text">ANTAR</span>
+                        </span>
+                        <span class="text-[10px] font-mono text-cyber-cyan tracking-widest uppercase">SENIOR RED TEAM OPERATOR</span>
+                    </div>
+                </a>
+
+                <!-- Nav Links -->
+                <div class="hidden lg:flex items-center gap-8 font-semibold text-sm">
+                    <a href="#about" class="hover:text-cyber-cyan transition-colors flex items-center gap-2">
+                        <span class="text-cyber-red font-mono text-xs">01.</span> <span data-i18n="nav_about">نبذة عني</span>
+                    </a>
+                    <a href="#certifications" class="hover:text-cyber-gold transition-colors flex items-center gap-2">
+                        <span class="text-cyber-gold font-mono text-xs">02.</span> <span data-i18n="nav_certs">الشهادات المعتمدة</span>
+                    </a>
+                    <a href="#skills" class="hover:text-cyber-red transition-colors flex items-center gap-2">
+                        <span class="text-cyber-cyan font-mono text-xs">03.</span> <span data-i18n="nav_skills">الترسانة والمهارات</span>
+                    </a>
+                    <a href="#dragon" class="hover:text-cyber-cyan transition-colors flex items-center gap-2">
+                        <span class="text-cyber-green font-mono text-xs">04.</span> <span data-i18n="nav_dragon">منظومة DRAGON</span>
+                    </a>
+                    <a href="#writeups" class="hover:text-cyber-cyan transition-colors flex items-center gap-2">
+                        <span class="text-cyber-cyan font-mono text-xs">05.</span> <span data-i18n="nav_reports">تقارير CTF</span>
+                    </a>
+                    <a href="#terminal" class="hover:text-cyber-green transition-colors flex items-center gap-2">
+                        <span class="text-cyber-red font-mono text-xs">06.</span> <span data-i18n="nav_terminal">التيرمينال التفاعلي</span>
+                    </a>
+                </div>
+
+                <!-- Language Toggle & Contact CTA -->
+                <div class="flex items-center gap-4">
+                    <!-- Language Button -->
+                    <button id="lang-toggle" onclick="toggleLanguage()" class="px-3.5 py-1.5 rounded-lg glass-panel border border-cyber-border text-xs font-mono font-bold text-cyber-cyan hover:border-cyber-cyan transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-globe text-cyber-gold"></i>
+                        <span id="lang-text">English</span>
+                    </button>
+
+                    <!-- Contact Button -->
+                    <a href="#contact" class="hidden sm:flex px-5 py-2.5 rounded-xl font-orbitron font-bold text-xs uppercase tracking-wider bg-cyber-red text-white hover:bg-red-600 transition-all glow-box-red items-center gap-2">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span data-i18n="btn_contact">تواصل معي</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-label="فتح قائمة التنقل" class="lg:hidden w-10 h-10 rounded-lg glass-panel border border-cyber-border text-cyber-cyan items-center justify-center flex">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden lg:hidden max-w-7xl mx-auto border-t border-cyber-border px-4 py-4 space-y-2">
+            <a href="#about" class="block rounded-lg px-4 py-3 hover:bg-cyber-card text-white"><span data-i18n="nav_about">نبذة عني</span></a>
+            <a href="#certifications" class="block rounded-lg px-4 py-3 hover:bg-cyber-card text-white"><span data-i18n="nav_certs">الشهادات المعتمدة</span></a>
+            <a href="#skills" class="block rounded-lg px-4 py-3 hover:bg-cyber-card text-white"><span data-i18n="nav_skills">الترسانة والمهارات</span></a>
+            <a href="#dragon" class="block rounded-lg px-4 py-3 hover:bg-cyber-card text-white"><span data-i18n="nav_dragon">منظومة DRAGON</span></a>
+            <a href="#writeups" class="block rounded-lg px-4 py-3 hover:bg-cyber-card text-white"><span data-i18n="nav_reports">تقارير CTF</span></a>
+            <a href="#terminal" class="block rounded-lg px-4 py-3 hover:bg-cyber-card text-white"><span data-i18n="nav_terminal">التيرمينال التفاعلي</span></a>
+            <a href="#contact" class="block rounded-lg px-4 py-3 bg-cyber-red text-white text-center font-bold"><span data-i18n="btn_contact">تواصل معي</span></a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="about" class="relative z-20 pt-12 pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Left Info Column -->
+            <div class="lg:col-span-7 space-y-7 text-right dir-rtl">
+                
+                <!-- Status Badges -->
+                <div class="flex flex-wrap items-center gap-3">
+                    <span class="px-4 py-1.5 rounded-full bg-cyber-red/10 border border-cyber-red/40 text-cyber-red font-mono text-xs font-bold tracking-wide flex items-center gap-2">
+                        <i class="fa-solid fa-crosshairs text-cyber-red"></i> RED TEAM OPERATOR & PENETRATION TESTER
+                    </span>
+                    <span class="px-4 py-1.5 rounded-full bg-cyber-gold/10 border border-cyber-gold/40 text-cyber-gold font-mono text-xs font-bold tracking-wide flex items-center gap-2">
+                        <i class="fa-solid fa-certificate text-cyber-gold"></i> MULTI-CERTIFIED SECURITY SPECIALIST
+                    </span>
+                </div>
+
+                <!-- Main Name & Titles -->
+                <div class="space-y-2">
+                    <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">
+                        أحمد محمد <span class="text-cyber-red glow-red-text font-orbitron">عنتر</span>
+                    </h1>
+                    <h2 class="text-xl sm:text-3xl font-bold font-orbitron text-cyber-cyan glow-cyan-text">
+                        AHMED MOHAMED ANTAR
+                    </h2>
+                </div>
+
+                <!-- Dynamic Typing Subtitle -->
+                <div class="text-base sm:text-xl font-mono text-gray-300 flex items-center gap-2 h-10">
+                    <span class="text-cyber-red font-bold">&gt;</span>
+                    <span id="typed-text" class="text-cyber-green font-bold"></span>
+                    <span class="w-2.5 h-6 bg-cyber-green animate-pulse inline-block"></span>
+                </div>
+
+                <!-- Detailed Bio -->
+                <p class="text-gray-300 text-base sm:text-lg leading-relaxed max-w-2xl" data-i18n="hero_bio">
+                    مختبر اختراق معتمد من Cisco وRed Nexus، ومطور أدوات استطلاع وهجوم ذاتية الأتمتة.
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="#certifications" class="px-8 py-4 rounded-xl font-bold text-sm bg-cyber-gold text-black hover:bg-yellow-400 transition-all shadow-xl flex items-center gap-3 glow-box-gold">
+                        <i class="fa-solid fa-award text-lg"></i>
+                        <span data-i18n="btn_view_certs">استعراض الشهادات المعتمدة</span>
+                    </a>
+                    <a href="#dragon" class="px-8 py-4 rounded-xl font-bold text-sm glass-panel border border-cyber-cyan/50 text-cyber-cyan hover:border-cyber-cyan hover:glow-box-cyan transition-all flex items-center gap-3">
+                        <i class="fa-solid fa-dragon text-lg text-cyber-red"></i>
+                        <span data-i18n="btn_dragon_specs">تفاصيل منصة DRAGON</span>
+                    </a>
+                </div>
+
+                <!-- Quick Stats Grid -->
+                <div class="grid grid-cols-3 gap-2 sm:gap-4 pt-8 border-t border-cyber-border w-full max-w-xl">
+                    <div class="glass-panel p-2.5 sm:p-4 rounded-2xl text-center min-w-0 overflow-hidden">
+                        <div class="text-xl sm:text-3xl font-orbitron font-extrabold leading-tight text-cyber-gold glow-gold-text break-words">5 CERTIFIED</div>
+                        <div class="text-[9px] sm:text-xs text-gray-400 font-bold mt-1 leading-tight break-words">Red Nexus,<br class="sm:hidden"> Cisco,<br class="sm:hidden"> Google &amp; Udemy</div>
+                    </div>
+                    <div class="glass-card p-2.5 sm:p-4 rounded-2xl text-center glass-panel min-w-0 overflow-hidden">
+                        <div class="text-xl sm:text-3xl font-orbitron font-extrabold text-cyber-red glow-red-text leading-tight">106</div>
+                        <div class="text-[9px] sm:text-xs text-gray-400 font-bold mt-1 leading-tight break-words">Root Python Scripts</div>
+                    </div>
+                    <div class="glass-panel p-2.5 sm:p-4 rounded-2xl text-center min-w-0 overflow-hidden">
+                        <div class="text-xl sm:text-3xl font-orbitron font-extrabold text-cyber-cyan glow-cyan-text leading-tight">100%</div>
+                        <div class="text-[9px] sm:text-xs text-gray-400 font-bold mt-1 leading-tight break-words">Autonomous Pipeline</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Visual Personal Profile Photo Display -->
+            <div class="lg:col-span-5 flex justify-center relative">
+                <div class="relative w-80 sm:w-[420px]">
+                    <!-- Outer Glowing Aura -->
+                    <div class="absolute -inset-6 rounded-3xl bg-gradient-to-r from-cyber-red via-cyber-cyan to-cyber-gold opacity-50 blur-2xl animate-pulse"></div>
+                    
+                    <!-- Main Frame -->
+                    <div class="relative rounded-3xl glass-panel border-2 border-cyber-cyan/60 p-3 overflow-hidden shadow-2xl">
+                        <!-- Personal Image Container -->
+                        <div class="relative rounded-2xl overflow-hidden aspect-[3/4] group">
+                            <img src="./images/my%20ahmed%20antar.jpg" 
+                                 alt="Ahmed Mohamed Antar" 
+                                 class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                                 width="420" height="560" fetchpriority="high" decoding="async"
+                                 onerror="this.onerror=null; this.style.opacity='0.35';">
+                            
+                            <!-- Scanner HUD Overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent"></div>
+                            <div class="absolute inset-x-0 h-1 bg-cyber-cyan glow-box-cyan animate-laser"></div>
+                            
+                            <!-- Floating Badge Info on Image -->
+                            <div class="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 p-2.5 sm:p-3 rounded-xl glass-panel border border-cyber-cyan/50 text-center dir-ltr backdrop-blur-xl">
+                                <div class="flex items-center justify-center mb-1">
+                                    <span class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-cyber-green animate-ping"></span>
+                                        <span class="text-[9px] sm:text-[10px] font-mono text-cyber-green font-bold">VERIFIED OPERATOR</span>
+                                    </span>
+                                </div>
+                                <h3 class="font-bold text-white text-base sm:text-lg leading-tight">Ahmed Mohamed Antar</h3>
+                                <p class="text-[10px] sm:text-xs font-mono text-cyber-cyan">Ethical Hacker &amp; Recon Specialist</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Target Corner Reticles -->
+                    <div class="absolute -top-3 -left-3 w-8 h-8 border-t-4 border-l-4 border-cyber-cyan"></div>
+                    <div class="absolute -top-3 -right-3 w-8 h-8 border-t-4 border-r-4 border-cyber-cyan"></div>
+                    <div class="absolute -bottom-3 -left-3 w-8 h-8 border-b-4 border-l-4 border-cyber-red"></div>
+                    <div class="absolute -bottom-3 -right-3 w-8 h-8 border-b-4 border-r-4 border-cyber-red"></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CERTIFICATIONS & DIPLOMAS SHOWCASE SECTION (HIGH PRIORITY) -->
+    <section id="certifications" class="py-24 relative z-20 border-y border-cyber-border bg-cyber-dark/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyber-gold/10 border border-cyber-gold/40 text-cyber-gold text-xs font-mono font-bold">
+                    <i class="fa-solid fa-shield-virus"></i> ACADEMIC & ETHICAL VERIFICATION CREDENTIALS
+                </div>
+                <h2 class="text-3xl sm:text-5xl font-black text-white font-orbitron">
+                    الشهادات والاعتمادات <span class="text-cyber-gold glow-gold-text">الرسمية الدولية</span>
+                </h2>
+                <p class="text-gray-400 text-sm sm:text-base">
+                    سجل الشهادات التخصصية المعتمدة التي تم اجتياز كافة التقييمات النظرية والميدانية المتقدمة فيها
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                
+                <!-- CERTIFICATE 1: RED NEXUS DIPLOMA -->
+                <div class="tilt-card glass-panel-red rounded-3xl p-6 sm:p-8 border-2 border-cyber-red/50 relative overflow-hidden shadow-2xl flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 bg-cyber-red text-white font-orbitron text-xs font-black px-5 py-2 rounded-bl-2xl shadow-lg flex items-center gap-2">
+                        <i class="fa-solid fa-crown"></i> RED TEAM DIPLOMA
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Image Container with Modal Trigger -->
+                        <div class="relative rounded-2xl overflow-hidden border border-cyber-red/50 bg-black/80 group cursor-pointer" onclick="openImageModal('./images/red%20team.jpg', 'Red Teaming &amp; Ethical Hacking Diploma - Red Nexus')">
+                            <img src="./images/red%20team.jpg"
+                                 alt="Red Nexus Diploma" 
+                                 class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                                 loading="lazy" decoding="async"
+                                 width="800" height="550"
+                                 onerror="this.onerror=null; this.style.opacity='0.35';">
+                            
+                            <div class="absolute inset-0 bg-cyber-red/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                                <span class="px-5 py-2.5 rounded-xl bg-black/90 border border-cyber-red text-cyber-red font-mono text-xs font-bold flex items-center gap-2 shadow-2xl">
+                                    <i class="fa-solid fa-magnifying-glass-plus"></i> تكبير وقراءة الشهادة
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="space-y-4 text-right dir-rtl">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-mono text-cyber-gold font-bold">CERTIFICATE ID: RN-RT-7699</span>
+                                <span class="px-3 py-1 rounded-md bg-cyber-red/20 text-cyber-red text-xs font-mono font-bold">RED NEXUS ACADEMY</span>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-black text-white">
+                                Red Teaming & Ethical Hacking Diploma
+                            </h3>
+                            <p class="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                                تم منح هذه الدبلومة الدولية المعتمدة بعد اجتياز الاختبار النهائي الشامل والاختبارات العملية في محاكاة التهديدات المتقدمة (APTs)، الاختراق الأخلاقي للأنظمة والتطبيقات، وبناء الاستراتيجيات الهجومية.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-cyber-border font-mono text-xs text-gray-400">
+                                <div>تاريخ الإصدار: <span class="text-white font-bold">07 November 2026</span></div>
+                                <div>توقيع المؤسس: <span class="text-cyber-gold font-bold">Hossam Shady</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CERTIFICATE 2: CISCO NETWORKING ACADEMY -->
+                <div class="tilt-card glass-panel-gold rounded-3xl p-6 sm:p-8 border-2 border-cyber-gold/50 relative overflow-hidden shadow-2xl flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 bg-cyber-gold text-black font-orbitron text-xs font-black px-5 py-2 rounded-bl-2xl shadow-lg flex items-center gap-2">
+                        <i class="fa-solid fa-shield"></i> CISCO ACADEMY
+                    </div>
+
+                    <div class="space-y-6">
+                        <!-- Image Container with Modal Trigger -->
+                        <div class="relative rounded-2xl overflow-hidden border border-cyber-gold/50 bg-black/80 group cursor-pointer" onclick="openImageModal('./images/cisco.jpg', 'Ethical Hacker Course Completion Certificate - Cisco Networking Academy')">
+                            <img src="./images/cisco.jpg"
+                                 alt="Cisco Ethical Hacker Certificate"
+                                 class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                                 loading="lazy" decoding="async" width="800" height="550"
+                                 onerror="this.onerror=null; this.style.opacity='0.35';">
+                            
+                            <div class="absolute inset-0 bg-cyber-gold/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                                <span class="px-5 py-2.5 rounded-xl bg-black/90 border border-cyber-gold text-cyber-gold font-mono text-xs font-bold flex items-center gap-2 shadow-2xl">
+                                    <i class="fa-solid fa-magnifying-glass-plus"></i> تكبير وقراءة الشهادة
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Details -->
+                        <div class="space-y-4 text-right dir-rtl">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-mono text-cyber-green font-bold">VERIFIED STUDENT CREDENTIAL</span>
+                                <span class="px-3 py-1 rounded-md bg-cyber-gold/20 text-cyber-gold text-xs font-mono font-bold">CISCO ACADEMY</span>
+                            </div>
+                            <h3 class="text-xl sm:text-3xl font-black text-white">
+                                Ethical Hacker Course Completion Certificate
+                            </h3>
+                            <p class="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                                شهادة رسمية صادرة من أكاديمية سيسكو (Cisco Networking Academy) تؤكد الاتقان التام لجمع المعلومات، ثغرات الشبكات السلكية واللاسلكية، ثغرات السحابة، IoT، وتقنيات ما بعد الاختراق (Post-Exploitation).
+                            </p>
+                            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-cyber-border font-mono text-xs text-gray-400">
+                                <div>تاريخ الإصدار: <span class="text-white font-bold">September 21, 2026</span></div>
+                                <div>مدير الأكاديمية: <span class="text-cyber-cyan font-bold">Lynn Bloomer</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CERTIFICATE 3: GOOGLE MAHARAT AI COURSE -->
+                <div class="tilt-card glass-panel rounded-3xl p-6 sm:p-8 border-2 border-cyber-cyan/50 relative overflow-hidden shadow-2xl flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 bg-cyber-cyan text-black font-orbitron text-xs font-black px-5 py-2 rounded-bl-2xl shadow-lg flex items-center gap-2">
+                        <i class="fa-solid fa-brain"></i> GOOGLE MAHARAT
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="relative rounded-2xl overflow-hidden border border-cyber-cyan/50 bg-white group cursor-pointer" onclick="openImageModal('./images/gogle%20ai.png', 'Training Completion Certificate - Google Maharat')">
+                            <img src="./images/gogle%20ai.png"
+                                 alt="Google Maharat Training Completion Certificate"
+                                 class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                                 loading="lazy" decoding="async" width="800" height="550"
+                                 onerror="this.onerror=null; this.style.opacity='0.35';">
+
+                            <div class="absolute inset-0 bg-cyber-cyan/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                                <span class="px-5 py-2.5 rounded-xl bg-black/90 border border-cyber-cyan text-cyber-cyan font-mono text-xs font-bold flex items-center gap-2 shadow-2xl">
+                                    <i class="fa-solid fa-magnifying-glass-plus"></i> تكبير وقراءة الشهادة
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 text-right dir-rtl">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-mono text-cyber-green font-bold">TRAINING COMPLETION CREDENTIAL</span>
+                                <span class="px-3 py-1 rounded-md bg-cyber-cyan/20 text-cyber-cyan text-xs font-mono font-bold">GOOGLE MAHARAT</span>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-black text-white">
+                                Boost Your Productivity with AI
+                            </h3>
+                            <p class="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                                شهادة إتمام دورة تدريبية بعنوان Boost Your Productivity with AI، مقدمة بالتعاون مع مهارات من Google، وتؤكد إتمام التدريب بنجاح.
+                            </p>
+                            <div class="pt-4 border-t border-cyber-border font-mono text-xs text-gray-400">
+                                تاريخ الإصدار: <span class="text-white font-bold">15 April 2026</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CERTIFICATE 4: eJPTv2 UDEMY COURSE -->
+                <div class="tilt-card glass-panel-gold rounded-3xl p-6 sm:p-8 border-2 border-purple-500/50 relative overflow-hidden shadow-2xl flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 bg-purple-500 text-white font-orbitron text-xs font-black px-5 py-2 rounded-bl-2xl shadow-lg flex items-center gap-2">
+                        <i class="fa-solid fa-award"></i> UDEMY CERTIFICATE
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="relative rounded-2xl overflow-hidden border border-purple-500/50 bg-black/80 group">
+                            <img src="./images/ejptv2.png"
+                                 alt="Udemy Penetration Testing Student eJPTv2 Certificate"
+                                 class="w-full h-auto object-cover"
+                                 loading="lazy" decoding="async" width="800" height="550"
+                                 onerror="this.onerror=null; this.style.opacity='0.35';">
+                            <a href="./images/%D8%B4%D9%87%D8%A7%D8%AF%D9%87%20eJPTv2.pdf"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="absolute inset-0 bg-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                                <span class="px-5 py-2.5 rounded-xl bg-black/90 border border-purple-400 text-purple-300 font-mono text-xs font-bold flex items-center gap-2 shadow-2xl">
+                                    <i class="fa-solid fa-file-arrow-down"></i> فتح الشهادة كاملة
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="space-y-4 text-right dir-rtl">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-mono text-cyber-green font-bold">UC-109981be-51a8-4d9f-9db9-c285f7d68834</span>
+                                <span class="px-3 py-1 rounded-md bg-purple-500/20 text-purple-300 text-xs font-mono font-bold">UDEMY</span>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-black text-white">
+                                Penetration Testing Student | eJPTv2
+                            </h3>
+                            <p class="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                                شهادة إتمام دورة اختبار الاختراق المعتمدة بواسطة Hossam Ayman Shady على منصة Udemy، بمعدل تدريب إجمالي 54 ساعة.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-cyber-border font-mono text-xs text-gray-400">
+                                <div>تاريخ الإصدار: <span class="text-white font-bold">22 December 2025</span></div>
+                                <div>الرقم المرجعي: <span class="text-purple-300 font-bold">0004</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CERTIFICATE 5: RED NEXUS CYBERSECURITY RED TEAMING TRACK -->
+                <div class="tilt-card glass-panel-red rounded-3xl p-6 sm:p-8 border-2 border-cyber-red/50 relative overflow-hidden shadow-2xl flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 bg-cyber-red text-white font-orbitron text-xs font-black px-5 py-2 rounded-bl-2xl shadow-lg flex items-center gap-2">
+                        <i class="fa-solid fa-user-shield"></i> RED NEXUS TRACK
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="relative rounded-2xl overflow-hidden border border-cyber-red/50 bg-black/80 group cursor-pointer" onclick="openImageModal('./images/red%20team%200.jpg', '120-Hour Cybersecurity Red Teaming Track - Red Nexus Academy')">
+                            <img src="./images/red%20team%200.jpg"
+                                 alt="Red Nexus 120-Hour Cybersecurity Red Teaming Track Certificate"
+                                 class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                                 loading="lazy" decoding="async" width="800" height="550"
+                                 onerror="this.onerror=null; this.style.opacity='0.35';">
+
+                            <div class="absolute inset-0 bg-cyber-red/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                                <span class="px-5 py-2.5 rounded-xl bg-black/90 border border-cyber-red text-cyber-red font-mono text-xs font-bold flex items-center gap-2 shadow-2xl">
+                                    <i class="fa-solid fa-magnifying-glass-plus"></i> تكبير وقراءة الشهادة
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 text-right dir-rtl">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-mono text-cyber-gold font-bold">CERTIFICATE ID: 74</span>
+                                <span class="px-3 py-1 rounded-md bg-cyber-red/20 text-cyber-red text-xs font-mono font-bold">RED NEXUS ACADEMY</span>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-black text-white">
+                                120-Hour Cybersecurity Red Teaming Track
+                            </h3>
+                            <p class="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                                شهادة إتمام مسار Cybersecurity Red Teaming المعتمد من Red Nexus Academy، بتدريب إجمالي 120 ساعة في التخصصات الهجومية والأمن السيبراني.
+                            </p>
+                            <div class="pt-4 border-t border-cyber-border font-mono text-xs text-gray-400">
+                                مقدم المسار: <span class="text-cyber-gold font-bold">Hossam Shady</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CORE SKILLS & EXPERTISE MATRIX -->
+    <section id="skills" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <h2 class="text-3xl sm:text-5xl font-black text-white font-orbitron">
+                مصفوفة المهارات <span class="text-cyber-cyan glow-cyan-text">والترسانة الهجومية</span>
+            </h2>
+            <p class="text-gray-400 text-sm sm:text-base">
+                قدرات متقدمة تغطي كافة مراحل تنفيذ الهجمات السيبرانية والأتمتة الذكية
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Skill 1 -->
+            <div class="glass-panel p-8 rounded-3xl hover:border-cyber-red transition-all group">
+                <div class="w-14 h-14 rounded-2xl bg-cyber-red/10 border border-cyber-red/40 flex items-center justify-center text-cyber-red text-2xl mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-mask"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Red Teaming & APT Emulation</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    محاكاة هجمات الجماعات المتقدمة (APTs)، تجاوز أنظمة الحماية EDR/AV، وتحركات Lateral Movement داخل الشبكات المعقدة.
+                </p>
+                <div class="w-full bg-cyber-dark h-2 rounded-full overflow-hidden">
+                    <div class="bg-cyber-red h-full rounded-full w-[95%]"></div>
+                </div>
+            </div>
+
+            <!-- Skill 2 -->
+            <div class="glass-panel p-8 rounded-3xl hover:border-cyber-cyan transition-all group">
+                <div class="w-14 h-14 rounded-2xl bg-cyber-cyan/10 border border-cyber-cyan/40 flex items-center justify-center text-cyber-cyan text-2xl mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Offensive Tool Engineering</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    تطوير سكريبتات البايثون (Python 3) المتقدمة، بناء محركات الاستطلاع التلقائي، والربط الذكي مع الـ APIs المتقدمة.
+                </p>
+                <div class="w-full bg-cyber-dark h-2 rounded-full overflow-hidden">
+                    <div class="bg-cyber-cyan h-full rounded-full w-[98%]"></div>
+                </div>
+            </div>
+
+            <!-- Skill 3 -->
+            <div class="glass-panel p-8 rounded-3xl hover:border-cyber-gold transition-all group">
+                <div class="w-14 h-14 rounded-2xl bg-cyber-gold/10 border border-cyber-gold/40 flex items-center justify-center text-cyber-gold text-2xl mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-globe"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Web & API Penetration Testing</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    اكتشاف ثغرات الويب الحرجة (SSRF, SQLi, IDOR, RCE, Prototype Pollution) واختبار مصادقة الـ APIs المعقدة.
+                </p>
+                <div class="w-full bg-cyber-dark h-2 rounded-full overflow-hidden">
+                    <div class="bg-cyber-gold h-full rounded-full w-[92%]"></div>
+                </div>
+            </div>
+
+            <!-- Skill 4 -->
+            <div class="glass-panel p-8 rounded-3xl hover:border-cyber-green transition-all group">
+                <div class="w-14 h-14 rounded-2xl bg-cyber-green/10 border border-cyber-green/40 flex items-center justify-center text-cyber-green text-2xl mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-eye"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">OSINT & Reconnaissance Architecture</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    جمع المعلومات الاستخباراتية وتنسيق بصمة البنى التحتية باستخدام الاستطلاع، DNS، النطاقات الفرعية، Wayback، وفحص الأسرار البرمجية ضمن أدوات معيارية.
+                </p>
+                <div class="w-full bg-cyber-dark h-2 rounded-full overflow-hidden">
+                    <div class="bg-cyber-green h-full rounded-full w-[100%]"></div>
+                </div>
+            </div>
+
+            <!-- Skill 5 -->
+            <div class="glass-panel p-8 rounded-3xl hover:border-purple-500 transition-all group">
+                <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/40 flex items-center justify-center text-purple-400 text-2xl mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-server"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Active Directory & Infra Pentest</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    فحص وبيئات العمل الداخلية (Domain Controller, Kerberoasting, AS-REP Roasting, BloodHound Analysis).
+                </p>
+                <div class="w-full bg-cyber-dark h-2 rounded-full overflow-hidden">
+                    <div class="bg-purple-500 h-full rounded-full w-[90%]"></div>
+                </div>
+            </div>
+
+            <!-- Skill 6 -->
+            <div class="glass-panel p-8 rounded-3xl hover:border-cyber-red transition-all group">
+                <div class="w-14 h-14 rounded-2xl bg-cyber-red/10 border border-cyber-red/40 flex items-center justify-center text-cyber-red text-2xl mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-shield-cat"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white mb-3">Remediation & Defensive Shielding</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    صياغة الحلول الترقيعية الهندسية، كتابة قواعد nftables، وتأمين الخدمات لمنع استغلال الثغرات راديكالياً.
+                </p>
+                <div class="w-full bg-cyber-dark h-2 rounded-full overflow-hidden">
+                    <div class="bg-cyber-red h-full rounded-full w-[94%]"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FLAGSHIP PROJECT: DRAGON PLATFORM SHOWCASE -->
+    <section id="dragon" class="py-24 relative z-20 border-t border-cyber-border bg-cyber-card/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+                <span class="px-4 py-1.5 rounded-full bg-cyber-red/10 border border-cyber-red/40 text-cyber-red font-mono text-xs font-bold">
+                    FLAGSHIP OFFENSIVE AUTOMATION ENGINE
+                </span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white font-orbitron">
+                    منظومة <span class="text-cyber-red glow-red-text">DRAGON</span> الذكية
+                </h2>
+                <p class="text-gray-400 text-sm sm:text-base">
+                    منصّة أتمتة اختبار اختراق معيارية، تربط الاستطلاع والفحص والتحقق والتقارير والإشعارات ضمن خط أنابيب موحّد
+                </p>
+            </div>
+
+            <div class="glass-panel-red rounded-3xl p-5 sm:p-8 lg:p-10 border border-cyber-red/40 relative overflow-hidden">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-10">
+                    <div class="glass-panel rounded-2xl p-4 text-center">
+                        <div class="text-2xl sm:text-3xl font-orbitron font-black text-cyber-red">106</div>
+                        <div class="text-[11px] sm:text-xs text-gray-400 mt-1">Root Python Scripts</div>
+                    </div>
+                    <div class="glass-panel rounded-2xl p-4 text-center">
+                        <div class="text-2xl sm:text-3xl font-orbitron font-black text-cyber-cyan">18</div>
+                        <div class="text-[11px] sm:text-xs text-gray-400 mt-1">Tool Integration Bridges</div>
+                    </div>
+                    <div class="glass-panel rounded-2xl p-4 text-center">
+                        <div class="text-2xl sm:text-3xl font-orbitron font-black text-cyber-gold">8</div>
+                        <div class="text-[11px] sm:text-xs text-gray-400 mt-1">Execution Phases</div>
+                    </div>
+                    <div class="glass-panel rounded-2xl p-4 text-center">
+                        <div class="text-2xl sm:text-3xl font-orbitron font-black text-cyber-green">10</div>
+                        <div class="text-[11px] sm:text-xs text-gray-400 mt-1">Specialized Agents</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div class="lg:col-span-7 space-y-6 text-right dir-rtl">
+                        <div class="inline-flex items-center gap-2 text-cyber-cyan font-mono text-xs">
+                            <i class="fa-solid fa-terminal"></i>
+                            python3 main_pipeline.py &lt;authorized-target&gt;
+                        </div>
+
+                        <h3 class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+                            استطلاع متكامل واختبار آلي وتقارير قابلة للتتبع
+                        </h3>
+
+                        <p class="text-gray-300 leading-relaxed text-sm sm:text-base">
+                            طورت منظومة <strong class="text-white">DRAGON</strong> كمنصة هجومية معيارية تعمل من سطر الأوامر وتشغّل دورة اختبار مصرح بها كاملة من الاستطلاع حتى التحقق والتقارير والإشعار. تعتمد المنظومة عزل كل جولة في مساحة تشغيل مستقلة، مع تنفيذ الفاحصات بنمط <strong class="text-cyber-green">Fail-soft</strong> وإعادة المحاولة والمهلة الزمنية وتسجيل النتائج في SQLite.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                            <div class="flex items-start gap-3 glass-panel rounded-xl p-3 border-cyber-border">
+                                <i class="fa-solid fa-radar text-cyber-cyan mt-1"></i>
+                                <span><strong class="text-white">Recon & OSINT</strong><br><span class="text-gray-400">DNS، بصمة تقنية، Subdomains وWayback وJS Secrets</span></span>
+                            </div>
+                            <div class="flex items-start gap-3 glass-panel rounded-xl p-3 border-cyber-border">
+                                <i class="fa-solid fa-bug text-cyber-red mt-1"></i>
+                                <span><strong class="text-white">Web & API Testing</strong><br><span class="text-gray-400">XSS، SQLi، SSRF، IDOR، JWT وPrototype Pollution</span></span>
+                            </div>
+                            <div class="flex items-start gap-3 glass-panel rounded-xl p-3 border-cyber-border">
+                                <i class="fa-solid fa-network-wired text-cyber-gold mt-1"></i>
+                                <span><strong class="text-white">Network & AD</strong><br><span class="text-gray-400">Port Scanning، SMB، RPC، LDAP وIntegrations</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-5 dir-ltr">
+                        <div class="bg-black/90 border border-cyber-border rounded-2xl overflow-hidden shadow-2xl">
+                            <div class="flex items-center justify-between px-5 py-3.5 border-b border-cyber-border bg-cyber-card text-xs font-mono">
+                                <span class="text-gray-400">DRAGON / execution pipeline</span>
+                                <span class="text-cyber-green font-bold">AUTHORIZED</span>
+                            </div>
+                            <div class="p-5 font-mono text-xs sm:text-sm text-gray-300 space-y-2.5">
+                                <div class="text-cyber-cyan">$ python3 main_pipeline.py --target &lt;scope&gt;</div>
+                                <div>[01] <span class="text-white">Health & Stealth</span></div>
+                                <div>[02] <span class="text-white">Recon & Fingerprint</span></div>
+                                <div>[03] <span class="text-white">File & Template Vulnerabilities</span></div>
+                                <div>[04] <span class="text-white">Logic, IDOR & Race Tests</span></div>
+                                <div>[05] <span class="text-white">API & Business Logic</span></div>
+                                <div>[06] <span class="text-white">Cloud & Perimeter</span></div>
+                                <div>[07] <span class="text-cyber-gold">Validation & Attack Chaining</span></div>
+                                <div>[08] <span class="text-cyber-green">Report → Notify → SQLite</span></div>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel rounded-2xl p-5">
+                            <h4 class="font-bold text-white mb-3 font-orbitron text-sm">STACK & INTEGRATIONS</h4>
+                            <div class="flex flex-wrap gap-2 text-xs font-mono">
+                                <span class="px-3 py-1.5 rounded-full bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/20">Python</span>
+                                <span class="px-3 py-1.5 rounded-full bg-cyber-red/10 text-cyber-red border border-cyber-red/20">Flask</span>
+                                <span class="px-3 py-1.5 rounded-full bg-cyber-gold/10 text-cyber-gold border border-cyber-gold/20">SQLite</span>
+                                <span class="px-3 py-1.5 rounded-full bg-cyber-green/10 text-cyber-green border border-cyber-green/20">Ollama</span>
+                                <span class="px-3 py-1.5 rounded-full bg-purple-500/10 text-purple-300 border border-purple-500/20">Nuclei</span>
+                                <span class="px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-300 border border-blue-500/20">SQLMap</span>
+                                <span class="px-3 py-1.5 rounded-full bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/20">Nmap</span>
+                                <span class="px-3 py-1.5 rounded-full bg-cyber-red/10 text-cyber-red border border-cyber-red/20">Metasploit</span>
+                                <span class="px-3 py-1.5 rounded-full bg-cyber-gold/10 text-cyber-gold border border-cyber-gold/20">Telegram</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-cyber-border grid grid-cols-1 md:grid-cols-3 gap-4 text-center text-xs sm:text-sm">
+                    <div class="text-gray-400"><i class="fa-solid fa-folder-tree text-cyber-cyan ml-2"></i> عزل كل جولة في مجلد timestamp مستقل</div>
+                    <div class="text-gray-400"><i class="fa-solid fa-shield-halved text-cyber-green ml-2"></i> Fail-soft مع إعادة المحاولة والمهلة الزمنية</div>
+                    <div class="text-gray-400"><i class="fa-solid fa-file-lines text-cyber-gold ml-2"></i> تقرير موحّد، SQLite، لوحة ويب وإشعارات</div>
+                </div>
+
+                <div class="mt-6 rounded-xl border border-cyber-red/30 bg-cyber-red/5 px-4 py-3 text-center text-xs text-gray-300">
+                    <i class="fa-solid fa-circle-exclamation text-cyber-red ml-2"></i>
+                    للاستخدام داخل بيئات مصرح بها، مختبرات، CTFs وبرامج Bug Bounty ضمن النطاق الصريح فقط.
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTF WRITEUPS & SECURITY REPORTS -->
+    <section id="writeups" class="py-24 relative z-20 border-t border-cyber-border bg-cyber-dark/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14 space-y-3">
+                <span class="px-4 py-1.5 rounded-full bg-cyber-cyan/10 border border-cyber-cyan/40 text-cyber-cyan font-mono text-xs font-bold">CTF WRITEUPS & SECURITY RESEARCH</span>
+                <h2 class="text-3xl sm:text-5xl font-black text-white font-orbitron">تقارير <span class="text-cyber-cyan glow-cyan-text">CTF والاستغلال العملي</span></h2>
+                <p class="text-gray-400 text-sm sm:text-base">توثيق عملي لرحلة الاستطلاع والاستغلال وتصعيد الصلاحيات داخل مختبرات مصرح بها</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <article class="glass-panel-red tilt-card rounded-3xl border border-cyber-red/40 overflow-hidden flex flex-col">
+                    <div class="p-6 sm:p-8 flex flex-col flex-1 text-right dir-rtl">
+                        <div class="flex items-center justify-between gap-3 mb-5">
+                            <span class="px-3 py-1 rounded-md bg-cyber-red/15 text-cyber-red text-xs font-mono font-bold">TRYHACKME</span>
+                            <span class="text-xs text-gray-500 font-mono">26 Sep 2026 · 3 min read</span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-4"><div class="w-12 h-12 rounded-xl bg-cyber-red/10 border border-cyber-red/30 flex items-center justify-center text-cyber-red text-xl"><i class="fa-solid fa-road"></i></div><h3 class="text-2xl font-black text-white">Road CTF WriteUp</h3></div>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-5">تقرير استغلال بيئة Sky Couriers يغطي الاستطلاع، اكتشاف رفع ملفات متاح، إنشاء Web Shell، الحصول على Reverse Shell وصولًا لمستخدم <span class="font-mono text-cyber-cyan">www-data</span> ثم تصعيد الصلاحيات إلى root عبر استغلال إعدادات <span class="font-mono text-cyber-gold">LD_PRELOAD</span>.</p>
+                        <div class="flex flex-wrap gap-2 mb-6"><span class="px-2.5 py-1 rounded-full bg-cyber-cyan/10 border border-cyber-cyan/20 text-cyber-cyan text-[11px] font-mono">Nmap</span><span class="px-2.5 py-1 rounded-full bg-cyber-red/10 border border-cyber-red/20 text-cyber-red text-[11px] font-mono">PHP Web Shell</span><span class="px-2.5 py-1 rounded-full bg-cyber-gold/10 border border-cyber-gold/20 text-cyber-gold text-[11px] font-mono">Reverse Shell</span><span class="px-2.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-[11px] font-mono">LD_PRELOAD</span></div>
+                        <div class="mt-auto grid grid-cols-3 gap-2 text-center font-mono text-xs"><div class="rounded-xl bg-cyber-dark/70 border border-cyber-border py-3"><strong class="text-cyber-cyan block text-lg">Nmap</strong><span class="text-gray-500">Recon</span></div><div class="rounded-xl bg-cyber-dark/70 border border-cyber-border py-3"><strong class="text-cyber-red block text-lg">RCE</strong><span class="text-gray-500">Initial Access</span></div><div class="rounded-xl bg-cyber-dark/70 border border-cyber-border py-3"><strong class="text-cyber-gold block text-lg">ROOT</strong><span class="text-gray-500">Privilege Esc.</span></div></div>
+                        <a href="https://medium.com/@zxxxxxxxxxxx5/road-ctf-writeup-170e2a22db2d?sharedUserId=zxxxxxxxxxxx5" target="_blank" rel="noopener noreferrer" class="mt-6 w-full px-5 py-3 rounded-xl bg-cyber-red text-white font-bold text-sm text-center hover:bg-red-600 transition-all flex items-center justify-center gap-2">قراءة التقرير الكامل <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </article>
+
+                <article class="glass-panel tilt-card rounded-3xl border border-cyber-cyan/40 overflow-hidden flex flex-col">
+                    <div class="p-6 sm:p-8 flex flex-col flex-1 text-right dir-rtl">
+                        <div class="flex items-center justify-between gap-3 mb-5">
+                            <span class="px-3 py-1 rounded-md bg-cyber-cyan/15 text-cyber-cyan text-xs font-mono font-bold">TRYHACKME</span>
+                            <span class="text-xs text-gray-500 font-mono">22 Sep 2026 · 5 min read</span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-4"><div class="w-12 h-12 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/30 flex items-center justify-center text-cyber-cyan text-xl"><i class="fa-solid fa-cubes"></i></div><h3 class="text-2xl font-black text-white">SMOL CTF WriteUp — THM</h3></div>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-5">تقرير WordPress متعدد المراحل يغطي WPScan وGobuster وNmap، استغلال LFI للوصول إلى كود RCE، استخراج بيانات MySQL وكلمات المرور، استخدام John وSSH والحسابات المتعددة وصولًا إلى صلاحيات root.</p>
+                        <div class="flex flex-wrap gap-2 mb-6"><span class="px-2.5 py-1 rounded-full bg-cyber-cyan/10 border border-cyber-cyan/20 text-cyber-cyan text-[11px] font-mono">WPScan</span><span class="px-2.5 py-1 rounded-full bg-cyber-red/10 border border-cyber-red/20 text-cyber-red text-[11px] font-mono">LFI / RCE</span><span class="px-2.5 py-1 rounded-full bg-cyber-gold/10 border border-cyber-gold/20 text-cyber-gold text-[11px] font-mono">WordPress</span><span class="px-2.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-[11px] font-mono">SSH / John</span></div>
+                        <div class="mt-auto grid grid-cols-3 gap-2 text-center font-mono text-xs"><div class="rounded-xl bg-cyber-dark/70 border border-cyber-border py-3"><strong class="text-cyber-cyan block text-lg">LFI</strong><span class="text-gray-500">Discovery</span></div><div class="rounded-xl bg-cyber-dark/70 border border-cyber-border py-3"><strong class="text-cyber-red block text-lg">RCE</strong><span class="text-gray-500">Execution</span></div><div class="rounded-xl bg-cyber-dark/70 border border-cyber-border py-3"><strong class="text-cyber-gold block text-lg">ROOT</strong><span class="text-gray-500">Full Compromise</span></div></div>
+                        <a href="https://medium.com/@zxxxxxxxxxxx5/smol-ctf-writeup-thm-300dff20ab57?sharedUserId=zxxxxxxxxxxx5" target="_blank" rel="noopener noreferrer" class="mt-6 w-full px-5 py-3 rounded-xl bg-cyber-cyan text-black font-bold text-sm text-center hover:bg-cyan-300 transition-all flex items-center justify-center gap-2">قراءة التقرير الكامل <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE KALI TERMINAL SIMULATOR -->
+    <section id="terminal" class="py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+        
+        <div class="text-center max-w-3xl mx-auto mb-12 space-y-3">
+            <h2 class="text-3xl sm:text-4xl font-bold font-orbitron text-white">
+                تيرمينال المشغل التفاعلي <span class="text-cyber-green glow-green-text">&lt;Shell /&gt;</span>
+            </h2>
+            <p class="text-gray-400 font-mono text-xs sm:text-sm">
+                اكتب الأوامر التالية: <span class="text-cyber-cyan">help</span>, <span class="text-cyber-cyan">whoami</span>, <span class="text-cyber-cyan">cert</span>, <span class="text-cyber-cyan">skills</span>, <span class="text-cyber-cyan">dragon</span>, <span class="text-cyber-cyan">contact</span>, <span class="text-cyber-cyan">clear</span>
+            </p>
+        </div>
+
+        <div class="bg-black/95 border-2 border-cyber-border rounded-3xl shadow-2xl overflow-hidden scanline-overlay dir-ltr">
+            <!-- Terminal Header -->
+            <div class="bg-cyber-card px-5 py-3.5 border-b border-cyber-border flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="ml-2 font-mono text-xs text-gray-400">antarrr@kali: ~/ahmed_antar_portfolio</span>
+                </div>
+                <div class="font-mono text-xs text-cyber-green">zsh 5.9</div>
+            </div>
+
+            <!-- Terminal Output Area -->
+            <div id="terminal-output" class="p-6 font-mono text-xs sm:text-sm h-80 overflow-y-auto space-y-2 text-gray-300">
+                <div class="text-cyber-green">[+] INITIALIZING AHMED MOHAMED ANTAR OPERATOR SHELL...</div>
+                <div class="text-gray-400">[+] SYSTEM STATUS: <span class="text-cyber-green font-bold">READY</span> | RED TEAM OPERATOR ID: <span class="text-cyber-gold font-bold">RN-RT-7699</span></div>
+                <div class="text-gray-400">[+] Type <span class="text-cyber-cyan font-bold">help</span> to view available terminal commands.</div>
+                <br>
+            </div>
+
+            <!-- Terminal Input Command Line -->
+            <div class="px-6 py-4 bg-cyber-card border-t border-cyber-border flex items-center">
+                <span class="text-cyber-green font-mono mr-2">antarrr@kali:~$</span>
+                <input type="text" id="terminal-input" class="bg-transparent font-mono text-sm text-white focus:outline-none w-full" placeholder="Type command..." autocomplete="off">
+            </div>
+        </div>
+
+    </section>
+
+    <!-- FOOTER & CONTACT -->
+    <footer id="contact" class="bg-cyber-dark border-t border-cyber-border py-16 relative z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            
+            <h2 class="text-2xl sm:text-4xl font-black font-orbitron text-white">
+                <span class="text-cyber-red glow-red-text">Ahmed Antar</span>
+            </h2>
+
+            <!-- Social Links -->
+            <div class="flex justify-center gap-6 text-2xl pt-2">
+                <a href="https://wa.me/Ahmed.Mohamed.Antar?s=p" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp" class="w-12 h-12 rounded-2xl glass-panel flex items-center justify-center text-cyber-green hover:border-cyber-green transition-all hover:scale-110">
+                    <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                </a>
+                <a href="https://www.facebook.com/share/1CZMqdBJ9z/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook" class="w-12 h-12 rounded-2xl glass-panel flex items-center justify-center text-cyber-cyan hover:border-cyber-cyan transition-all hover:scale-110">
+                    <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+                </a>
+                <a href="https://www.instagram.com/1ahmed.antar?exln=NTU4MXJvYTYzdHVw&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram" class="w-12 h-12 rounded-2xl glass-panel flex items-center justify-center text-cyber-gold hover:border-cyber-gold transition-all hover:scale-110">
+                    <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <div class="pt-8 border-t border-cyber-border/50 text-xs font-mono text-gray-500">
+                &copy; 2026 Ahmed Mohamed Antar. All Rights Reserved. Built for High-Impact Cyber Security.
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX MODAL FOR CERTIFICATE ZOOM -->
+    <div id="image-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl hidden flex items-center justify-center p-4" onclick="closeImageModal()">
+        <div class="relative max-w-5xl w-full max-h-[90vh] glass-panel p-4 rounded-3xl flex flex-col items-center" onclick="event.stopPropagation()">
+            <button id="modal-close" type="button" aria-label="إغلاق معاينة الشهادة" onclick="closeImageModal()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-cyber-red text-white flex items-center justify-center font-bold text-lg hover:bg-red-700 transition-colors z-10 shadow-2xl">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h3 id="modal-title" class="text-base sm:text-lg font-bold text-white mb-3 font-mono text-center"></h3>
+            <div class="overflow-auto max-h-[80vh] w-full flex items-center justify-center rounded-2xl bg-black/80">
+                <img id="modal-img" src="" alt="Certificate" class="max-w-full max-h-[75vh] object-contain rounded-xl">
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT: THREE.JS 3D CANVAS & TYPING EFFECT & TERMINAL & I18N -->
+    <script>
+        // 1. THREE.JS 3D BACKGROUND MATRIX CANVAS
+        if (window.THREE) {
+        const canvas = document.getElementById('bg-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        // Particle Particles Matrix Grid
+        const particlesCount = 850;
+        const positions = new Float32Array(particlesCount * 3);
+        const colors = new Float32Array(particlesCount * 3);
+
+        for(let i = 0; i < particlesCount * 3; i += 3) {
+            positions[i] = (Math.random() - 0.5) * 32;
+            positions[i+1] = (Math.random() - 0.5) * 32;
+            positions[i+2] = (Math.random() - 0.5) * 32;
+
+            // Crimson red, Cyan & Gold particle mix
+            const rand = Math.random();
+            if(rand > 0.6) {
+                colors[i] = 1.0; colors[i+1] = 0.0; colors[i+2] = 0.23; // Crimson #FF003C
+            } else if (rand > 0.2) {
+                colors[i] = 0.0; colors[i+1] = 0.95; colors[i+2] = 1.0; // Cyan #00F3FF
+            } else {
+                colors[i] = 1.0; colors[i+1] = 0.84; colors[i+2] = 0.0; // Gold #FFD700
+            }
+        }
+
+        const geometry = new THREE.BufferGeometry();
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+        const material = new THREE.PointsMaterial({
+            size: 0.09,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.85
+        });
+
+        const particlesMesh = new THREE.Points(geometry, material);
+        scene.add(particlesMesh);
+
+        camera.position.z = 10;
+
+        // Mouse Parallax Effect
+        let mouseX = 0, mouseY = 0;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        function animate3D() {
+            requestAnimationFrame(animate3D);
+            if (document.hidden) return;
+            particlesMesh.rotation.y += 0.0012;
+            particlesMesh.rotation.x += 0.0006;
+
+            camera.position.x += (mouseX * 0.4 - camera.position.x) * 0.05;
+            camera.position.y += (-mouseY * 0.4 - camera.position.y) * 0.05;
+
+            renderer.render(scene, camera);
+        }
+        animate3D();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        }
+
+        // 2. DYNAMIC TYPING EFFECT FOR HERO
+        const typedTextSpan = document.getElementById("typed-text");
+        const phrases = [
+            "Senior Red Team Operator",
+            "Cisco Certified Ethical Hacker",
+            "Red Nexus Certified Diploma Holder",
+            "Creator of DRAGON, Autonomous Engine"
+        ];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function typeEffect() {
+            const currentPhrase = phrases[phraseIndex];
+            if (isDeleting) {
+                typedTextSpan.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typedTextSpan.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                setTimeout(typeEffect, 2000);
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                setTimeout(typeEffect, 500);
+            } else {
+                setTimeout(typeEffect, isDeleting ? 40 : 80);
+            }
+        }
+        document.addEventListener("DOMContentLoaded", typeEffect);
+
+        // 3. LIGHTBOX MODAL FOR CERTIFICATES
+        function openImageModal(src, title) {
+            const modal = document.getElementById('image-modal');
+            modal.dataset.previousFocus = document.activeElement && document.activeElement.id ? document.activeElement.id : '';
+            document.getElementById('modal-img').src = src;
+            document.getElementById('modal-title').textContent = title;
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+            document.getElementById('modal-close').focus();
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('image-modal');
+            modal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            document.getElementById('modal-img').removeAttribute('src');
+            const previousId = modal.dataset.previousFocus;
+            if (previousId) document.getElementById(previousId)?.focus();
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !document.getElementById('image-modal').classList.contains('hidden')) {
+                closeImageModal();
+            }
+        });
+
+        // 4. INTERACTIVE KALI TERMINAL SIMULATOR
+        const terminalOutput = document.getElementById('terminal-output');
+        const terminalInput = document.getElementById('terminal-input');
+
+        terminalInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const cmd = terminalInput.value.trim();
+                if (cmd === '') return;
+
+                // Echo command
+                const cmdLine = document.createElement('div');
+                const prompt = document.createElement('span');
+                prompt.className = 'text-cyber-green';
+                prompt.textContent = 'antarrr@kali:~$';
+                cmdLine.appendChild(prompt);
+                cmdLine.appendChild(document.createTextNode(' ' + cmd));
+                terminalOutput.appendChild(cmdLine);
+
+                const response = document.createElement('div');
+                response.className = "text-gray-300";
+
+                const cleanCmd = cmd.toLowerCase();
+
+                if (cleanCmd === 'help') {
+                    response.textContent = `Commands available:
+- whoami: View operator profile
+- cert / certs: Verify certifications
+- dragon: View DRAGON platform specs
+- skills: List technical offensive proficiencies
+- contact: Display communication section
+- clear: Clear output`;
+                } else if (cleanCmd === 'whoami') {
+                    response.textContent = 'Ahmed Mohamed Antar — Senior Red Team Operator and Offensive Security Specialist.';
+                } else if (cleanCmd === 'cert' || cleanCmd === 'certs') {
+                    response.textContent = `[VERIFIED CREDENTIALS]
+1. Red Teaming & Ethical Hacking Diploma — Red Nexus (RN-RT-7699, Nov 07, 2026)
+2. Ethical Hacker Course Completion — Cisco Networking Academy (Sep 21, 2026)
+3. Boost Your Productivity with AI — Google Maharat (Apr 15, 2026)
+4. Penetration Testing Student | eJPTv2 — Udemy (Dec 22, 2025)
+5. 120-Hour Cybersecurity Red Teaming Track — Red Nexus Academy (Certificate ID: 74)`;
+                } else if (cleanCmd === 'dragon') {
+                    response.textContent = '[DRAGON PLATFORM] Modular Python offensive-security platform: 106 root scripts, 18 tool bridges, 8 execution phases, 10 specialized agents. Includes fail-soft recon, web/API/network testing, validation, SQLite reporting, local Ollama analysis, and Telegram/WhatsApp/Discord notifications. Authorized use only.';
+                               } else if (cleanCmd === 'skills') {
+                    response.textContent = '[SKILLS] Red Teaming, APT Simulation, Python Automation, Web/API Pentesting, Active Directory, OSINT, and Defensive Remediation.';
+                } else if (cleanCmd === 'contact') {
+                    response.textContent = '[CONTACT] Use the communication links in the site footer.';
+                                                             } else if (cleanCmd === 'clear') {
+                    terminalOutput.replaceChildren();
+                    terminalInput.value = '';
+                    return;
+                } else {
+                    response.textContent = `Command not recognized: ${cmd}. Type help.`;
+                }
+
+                terminalOutput.appendChild(response);
+                terminalInput.value = '';
+                terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            }
+        });
+
+        // 5. MOBILE NAVIGATION
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const isOpen = !mobileMenu.classList.contains('hidden');
+            mobileMenu.classList.toggle('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', String(!isOpen));
+            mobileMenuButton.setAttribute('aria-label', isOpen ? 'فتح قائمة التنقل' : 'إغلاق قائمة التنقل');
+            const icon = mobileMenuButton.querySelector('i');
+            icon.className = isOpen ? 'fa-solid fa-bars' : 'fa-solid fa-xmark';
+        });
+
+        mobileMenu.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                mobileMenuButton.setAttribute('aria-label', 'فتح قائمة التنقل');
+                mobileMenuButton.querySelector('i').className = 'fa-solid fa-bars';
+            });
+        });
+
+        // 6. LANGUAGE TOGGLE
+        let currentLang = 'ar';
+        const translations = {
+            en: {
+                nav_about: "About",
+                nav_certs: "Certifications",
+                nav_skills: "Skills & Matrix",
+                nav_dragon: "DRAGON Engine",
+                nav_reports: "CTF Reports",
+                nav_terminal: "Terminal",
+                btn_contact: "Contact Me",
+                hero_bio: "Advanced specialist in Red Teaming, critical vulnerability discovery, offensive automation, and defensive remediation. Creator of DRAGON, a modular Python security platform covering reconnaissance, validation, reporting, local AI analysis, and multi-channel notifications.",
+                btn_view_certs: "View Verified Certs",
+                btn_dragon_specs: "DRAGON Specifications"
+            },
+            ar: {
+                nav_about: "نبذة عني",
+                nav_certs: "الشهادات المعتمدة",
+                nav_skills: "الترسانة والمهارات",
+                nav_dragon: "منظومة DRAGON",
+                nav_reports: "تقارير CTF",
+                nav_terminal: "التيرمينال التفاعلي",
+                btn_contact: "تواصل معي",
+                hero_bio: "مختبر اختراق معتمد من Cisco وRed Nexus، ومطور أدوات استطلاع وهجوم ذاتية الأتمتة.",
+                btn_view_certs: "استعراض الشهادات المعتمدة",
+                btn_dragon_specs: "تفاصيل منصة DRAGON"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            
+            document.getElementById('lang-text').textContent = currentLang === 'ar' ? 'English' : 'عربي';
+
+            document.querySelectorAll('[data-i18n]').forEach(elem => {
+                const key = elem.getAttribute('data-i18n');
+                if(translations[currentLang][key]) {
+                    elem.textContent = translations[currentLang][key];
+                }
+            });
+        }
+
+        // 7. INITIAL LOAD SCROLL HANDLING
+        window.addEventListener('load', () => {
+            if (!window.location.hash) {
+                window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+            }
+        });
+    </script>
+</body>
+</html>
